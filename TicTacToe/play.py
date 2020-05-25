@@ -10,22 +10,34 @@ env = Board()
 a1.epsilon = 0
 a2.epsilon = 0
 
-done = False
-env.reset()
+while True:
 
-while not done:
-    current_state1 = np.copy(env.current_state)
-    action_space = env.getValidActionSpace()
-    if len(action_space) == 0:
+    r = input('Do you want to play [y/n]: ')
+
+    if r == 'y':
+        done = False
+        env.reset()
+
+        while not done:
+            current_state1 = np.copy(env.current_state)
+            action_space = env.getValidActionSpace()
+            if len(action_space) == 0:
+                break
+            current_action1 = a1.greedy_action(current_state1, action_space)
+            [next_state1, reward1, done] = env.step(current_action1, 1)
+            env.render()
+            if not done:
+                current_state2 = np.copy(env.current_state)
+                action_space = env.getValidActionSpace()
+                if len(action_space) == 0:
+                    break
+                
+                in_row = int(input('Enter Row: '))
+                in_col = int(input('Enter Col: '))
+                
+                current_action2 = [in_row, in_col]
+                # current_action2 = a2.greedy_action(current_state2, action_space)
+                [next_state2, reward2, done] = env.step(current_action2, -1)
+                env.render()
+    else:
         break
-    current_action1 = a1.greedy_action(current_state1, action_space)
-    [next_state1, reward1, done] = env.step(current_action1, 1)
-    env.render()
-    if not done:
-        current_state2 = np.copy(env.current_state)
-        action_space = env.getValidActionSpace()
-        if len(action_space) == 0:
-            break
-        current_action2 = a2.greedy_action(current_state2, action_space)
-        [next_state2, reward2, done] = env.step(current_action2, -1)
-        env.render()
