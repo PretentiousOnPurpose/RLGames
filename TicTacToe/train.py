@@ -13,21 +13,6 @@ for i in range(numEp):
     done = False
     env.reset()
 
-    if i <= 1000:
-        env.epsilon = 1
-    elif i <= 3000:
-        env.epsilon = 0.75
-    elif i <= 6000:
-        env.epsilon = 0.55
-    elif i <= 8000:
-        env.epsilon = 0.4
-    elif i <= 10000:
-        env.epsilon = 0.3
-    elif i <= 13000:
-        env.epsilon = 0.2
-    elif i <= 15000:
-        env.epsilon = 0.1
-    
     while not done:
         current_state1 = np.copy(env.current_state)
         action_space = env.getValidActionSpace()
